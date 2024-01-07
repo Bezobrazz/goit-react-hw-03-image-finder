@@ -1,18 +1,10 @@
 import React, { Component } from 'react';
 
 export default class Searchbar extends Component {
-  state = {
-    search: '',
-  };
-
-  onSubmit = e => {
-    e.preventDefault();
-  };
-
   render() {
     return (
       <header className="searchbar">
-        <form className="form" onSubmit={this.onSubmit}>
+        <form className="form" onSubmit={this.props.onSubmit}>
           <button type="submit" className="button">
             <span className="button-label">Search</span>
           </button>
@@ -22,8 +14,8 @@ export default class Searchbar extends Component {
             name="search"
             type="text"
             placeholder="Search images and photos"
-            value={this.state.search}
-            onChange={e => this.setState({ search: e.target.value })}
+            value={this.props.search}
+            onChange={e => this.props.onSearchChange(e.target.value)}
           />
         </form>
       </header>
