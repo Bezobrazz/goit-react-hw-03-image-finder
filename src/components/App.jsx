@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Searchbar from './Searchbar/Searchbar';
 import axios from 'axios';
+import styles from './App.module.css';
 
 const pixabayApi = axios.create({
   baseURL: 'https://pixabay.com/api/',
@@ -13,15 +14,28 @@ const pixabayApi = axios.create({
   },
 });
 
-export default class App extends Component {
+class App extends Component {
   state = {
     search: '',
     images: [],
     page: 1,
   };
 
-  onSearchChange = searchValue => {
-    this.setState({ search: searchValue, page: 1, images: [] });
+  handleSearch = (searchValue, resetPage = false) => {
+    this.setState({
+      search: searchValue,
+      page: resetPage ? 1 : this.state.page,
+      images: [],
+    });
+  };
+
+  filterUniqueImages = newImages => {
+    return newImages.filter(
+      newImage =>
+        !this.state.images.some(
+          existingImage => existingImage.id === newImage.id
+        )
+    );
   };
 
   loadMoreImages = () => {
@@ -29,16 +43,11 @@ export default class App extends Component {
   };
 
   loadImages = async () => {
-    try {
-      const response = await pixabayApi.get(
-        '/?q=' + this.state.search + '&page=' + this.state.page
-      );
+    const { search, page } = this.state;
 
-      const uniqueImages = response.data.hits.filter(newImage => {
-        return !this.state.images.some(
-          existingImage => existingImage.id === newImage.id
-        );
-      });
+    try {
+      const response = await pixabayApi.get(`/?q=${search}&page=${page}`);
+      const uniqueImages = this.filterUniqueImages(response.data.hits);
 
       this.setState(prevState => ({
         images: [...prevState.images, ...uniqueImages],
@@ -48,9 +57,13 @@ export default class App extends Component {
     }
   };
 
-  onSubmit = async e => {
+  onSearchChange = searchValue => {
+    this.handleSearch(searchValue, true);
+  };
+
+  onSubmit = e => {
     e.preventDefault();
-    this.setState({ page: 1, images: [] }); // Очищаємо стан перед новим пошуком
+    this.handleSearch(this.state.search, true);
     this.loadImages();
   };
 
@@ -64,9 +77,9 @@ export default class App extends Component {
           search={this.state.search}
           onSearchChange={this.onSearchChange}
         />
-        <ul className="gallery">
+        <ul className={styles.gallery}>
           {images.map(image => (
-            <li key={image.id} className="gallery-item">
+            <li key={image.id} className={styles['gallery-item']}>
               <img src={image.webformatURL} alt={image.tag} />
             </li>
           ))}
@@ -79,3 +92,5 @@ export default class App extends Component {
     );
   }
 }
+
+export default App;
