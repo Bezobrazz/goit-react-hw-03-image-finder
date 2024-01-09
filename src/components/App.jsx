@@ -4,6 +4,7 @@ import axios from 'axios';
 import styles from './App.module.css';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Button } from './Button/Button';
+import { Loader } from './Loader/Loader';
 
 const pixabayApi = axios.create({
   baseURL: 'https://pixabay.com/api/',
@@ -21,6 +22,7 @@ class App extends Component {
     search: '',
     images: [],
     page: 1,
+    isLoading: false,
   };
 
   handleSearch = (searchValue, resetPage = false) => {
@@ -46,6 +48,7 @@ class App extends Component {
 
   loadImages = async () => {
     const { search, page } = this.state;
+    this.setState({ isLoading: true });
 
     try {
       const response = await pixabayApi.get(`/?q=${search}&page=${page}`);
@@ -56,6 +59,8 @@ class App extends Component {
       }));
     } catch (error) {
       console.error('Error fetching more images from Pixabay:', error);
+    } finally {
+      this.setState({ isLoading: false });
     }
   };
 
@@ -70,16 +75,17 @@ class App extends Component {
   };
 
   render() {
-    const { images } = this.state;
+    const { images, search, isLoading } = this.state;
 
     return (
-      <div>
+      <div className={styles.CenterLoader}>
         <Searchbar
           onSubmit={this.onSubmit}
-          search={this.state.search}
+          search={search}
           onSearchChange={this.onSearchChange}
         />
-        <ImageGallery images={this.state.images} />
+        <ImageGallery images={images} />
+        {isLoading && <Loader />}
         {images.length > 0 && <Button loadMoreImages={this.loadMoreImages} />}
       </div>
     );
