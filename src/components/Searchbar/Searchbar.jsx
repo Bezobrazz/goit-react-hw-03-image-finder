@@ -3,16 +3,20 @@ import styles from './Searchbar.module.css';
 
 const Searchbar = ({ onSubmit, search, onSearchChange }) => {
   return (
-    <form onSubmit={onSubmit} className={styles.searchbar}>
-      <input
-        type="text"
-        value={search}
-        onChange={e => onSearchChange(e.target.value)}
-        className={styles['search-input']}
-        placeholder="Search images..."
-      />
-      <button type="submit">Search</button>
-    </form>
+    <div className={styles.Searchbar}>
+      <form className={styles.SearchForm} onSubmit={onSubmit}>
+        <input
+          type="text"
+          value={search}
+          onChange={e => onSearchChange(e.target.value)}
+          className={styles.SearchFormInput}
+          placeholder="Search images..."
+        />
+        <button className={styles.SearchFormButton} type="submit">
+          Search
+        </button>
+      </form>
+    </div>
   );
 };
 
