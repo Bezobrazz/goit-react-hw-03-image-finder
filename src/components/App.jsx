@@ -5,6 +5,7 @@ import styles from './App.module.css';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Button } from './Button/Button';
 import { Loader } from './Loader/Loader';
+import Modal from './Modal/Modal';
 
 const pixabayApi = axios.create({
   baseURL: 'https://pixabay.com/api/',
@@ -14,6 +15,7 @@ const pixabayApi = axios.create({
     orientation: 'horizontal',
     safesearch: true,
     per_page: 12,
+    selectedImageId: null,
   },
 });
 
@@ -23,6 +25,7 @@ class App extends Component {
     images: [],
     page: 1,
     isLoading: false,
+    isModalOpen: false,
   };
 
   handleSearch = (searchValue, resetPage = false) => {
@@ -74,19 +77,41 @@ class App extends Component {
     this.loadImages();
   };
 
+  handleModalOpen = (e, selectedImageId) => {
+    console.log(e.target);
+    this.setState({ isModalOpen: true, selectedImageId });
+  };
+  handelModalClose = e => {
+    e.target === e.currentTarget && this.setState({ isModalOpen: false });
+  };
+  onEscModalClose = e => {
+    if (e.key === 'Escape' && this.state.isModalOpen) {
+      this.setState({ isModalOpen: false });
+    }
+  };
+
   render() {
-    const { images, search, isLoading } = this.state;
+    const { images, search, isLoading, isModalOpen, selectedImageId } =
+      this.state;
 
     return (
-      <div className={styles.CenterLoader}>
+      <div className={styles.Wrapper}>
         <Searchbar
           onSubmit={this.onSubmit}
           search={search}
           onSearchChange={this.onSearchChange}
         />
-        <ImageGallery images={images} />
+        <ImageGallery images={images} handleModalOpen={this.handleModalOpen} />
         {isLoading && <Loader />}
         {images.length > 0 && <Button loadMoreImages={this.loadMoreImages} />}
+        {isModalOpen && (
+          <Modal
+            handelModalClose={this.handelModalClose}
+            onEscModalClose={this.onEscModalClose}
+            images={images}
+            selectedImageId={selectedImageId}
+          />
+        )}
       </div>
     );
   }
