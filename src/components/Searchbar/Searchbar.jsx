@@ -12,9 +12,7 @@ const Searchbar = ({ onSubmit, search, onSearchChange }) => {
           className={styles.SearchFormInput}
           placeholder="Search images..."
         />
-        <button className={styles.SearchFormButton} type="submit">
-          Search
-        </button>
+        <button className={styles.SearchFormButton}>Search</button>
       </form>
     </div>
   );

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Searchbar from './Searchbar/Searchbar';
 import axios from 'axios';
 import styles from './App.module.css';
+import { ImageGallery } from './ImageGallery/ImageGallery';
+import { Button } from './Button/Button';
 
 const pixabayApi = axios.create({
   baseURL: 'https://pixabay.com/api/',
@@ -77,17 +79,8 @@ class App extends Component {
           search={this.state.search}
           onSearchChange={this.onSearchChange}
         />
-        <ul className={styles.gallery}>
-          {images.map(image => (
-            <li key={image.id} className={styles['gallery-item']}>
-              <img src={image.webformatURL} alt={image.tag} />
-            </li>
-          ))}
-        </ul>
-
-        {images.length > 0 && (
-          <button onClick={this.loadMoreImages}>Load more</button>
-        )}
+        <ImageGallery images={this.state.images} />
+        {images.length > 0 && <Button loadMoreImages={this.loadMoreImages} />}
       </div>
     );
   }

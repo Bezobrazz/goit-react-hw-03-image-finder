@@ -22,8 +22,9 @@
   align-items: center;
   width: 100%;
   max-width: 600px;
-  background-color: #fff;
+  background-color: transparent;
   border-radius: 3px;
+  gap: 10px;
   overflow: hidden;
 }
 
@@ -38,6 +39,15 @@
   clip-path: inset(50%);
   border: 0;
 }
+.SearchFormButton {
+  display: block;
+  padding: 8px 16px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
 
 .SearchFormInput {
   display: inline-block;
@@ -45,6 +55,7 @@
   font: inherit;
   font-size: 20px;
   border: none;
+  border-radius: 3px;
   outline: none;
   padding-left: 4px;
   padding-right: 4px;
