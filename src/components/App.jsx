@@ -12,10 +12,9 @@ const pixabayApi = axios.create({
   params: {
     key: '41222612-5bd8d04c7d8e61a5d7de078bd',
     image_type: 'photo',
-    orientation: 'horizontal',
+    orientation: 'landscape',
     safesearch: true,
     per_page: 12,
-    selectedImageId: null,
   },
 });
 
@@ -26,6 +25,7 @@ class App extends Component {
     page: 1,
     isLoading: false,
     isModalOpen: false,
+    selectedImageId: null,
   };
 
   handleSearch = (searchValue, resetPage = false) => {
@@ -77,12 +77,12 @@ class App extends Component {
     this.loadImages();
   };
 
-  handleModalOpen = (e, selectedImageId) => {
-    console.log(e.target);
+  handleModalOpen = selectedImageId => {
     this.setState({ isModalOpen: true, selectedImageId });
   };
-  handelModalClose = e => {
-    e.target === e.currentTarget && this.setState({ isModalOpen: false });
+  handleModalClose = e => {
+    e.target === e.currentTarget &&
+      this.setState({ isModalOpen: false, selectedImageId: null });
   };
   onEscModalClose = e => {
     if (e.key === 'Escape' && this.state.isModalOpen) {
@@ -101,15 +101,19 @@ class App extends Component {
           search={search}
           onSearchChange={this.onSearchChange}
         />
-        <ImageGallery images={images} handleModalOpen={this.handleModalOpen} />
+        <ImageGallery
+          images={images}
+          // selectedImage={selectedImageId}
+          handleModalOpen={this.handleModalOpen}
+        />
         {isLoading && <Loader />}
         {images.length > 0 && <Button loadMoreImages={this.loadMoreImages} />}
         {isModalOpen && (
           <Modal
-            handelModalClose={this.handelModalClose}
+            handleModalClose={this.handleModalClose}
             onEscModalClose={this.onEscModalClose}
             images={images}
-            selectedImageId={selectedImageId}
+            selectedImage={selectedImageId}
           />
         )}
       </div>

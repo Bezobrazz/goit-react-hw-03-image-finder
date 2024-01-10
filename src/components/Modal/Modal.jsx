@@ -1,9 +1,9 @@
 // import styles from './Modal.module.css';
-// export const Modal = ({ handelModalClose, onEscModalClose, images }) => {
+// export const Modal = ({ handleModalClose, onEscModalClose, images }) => {
 //   return (
 //     <div
 //       className={styles.Overlay}
-//       onClick={handelModalClose}
+//       onClick={handleModalClose}
 //       onKeyDown={onEscModalClose}
 //       tabIndex="0"
 //     >
@@ -20,9 +20,9 @@ import React, { Component } from 'react';
 import styles from './Modal.module.css';
 
 class Modal extends Component {
-  state = {
-    selectedImageId: null,
-  };
+  // state = {
+  //   selectedImageId: null,
+  // };
 
   componentDidMount() {
     document.addEventListener('keydown', this.onKeyDown);
@@ -37,11 +37,11 @@ class Modal extends Component {
   };
 
   render() {
-    const { handelModalClose, images, selectedImageId } = this.props;
+    const { handleModalClose, images, selectedImageId } = this.props;
     const selectedImage = images.find(img => img.id === selectedImageId);
 
     return (
-      <div className={styles.Overlay} onClick={handelModalClose} tabIndex="0">
+      <div className={styles.Overlay} onClick={handleModalClose} tabIndex="0">
         <div className={styles.Modal}>
           {selectedImage && <img src={selectedImage.largeImageURL} alt="" />}
         </div>

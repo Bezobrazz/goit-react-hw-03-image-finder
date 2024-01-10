@@ -5,7 +5,11 @@ export const ImageGallery = ({ images, handleModalOpen }) => {
   return (
     <ul className={styles.gallery}>
       {images.map(image => (
-        <ImageGalleryItem image={image} handleModalOpen={handleModalOpen} />
+        <ImageGalleryItem
+          key={image.id}
+          image={image}
+          handleModalOpen={() => handleModalOpen(image.id)}
+        />
       ))}
     </ul>
   );
