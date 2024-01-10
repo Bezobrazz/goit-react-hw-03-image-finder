@@ -18,6 +18,8 @@
 
 import React, { Component } from 'react';
 import styles from './Modal.module.css';
+import { createPortal } from 'react-dom';
+const modalRoot = document.querySelector('#modal-root');
 
 class Modal extends Component {
   // state = {
@@ -26,10 +28,12 @@ class Modal extends Component {
 
   componentDidMount() {
     document.addEventListener('keydown', this.onKeyDown);
+    document.body.style.overflow = 'hidden';
   }
 
   componentWillUnmount() {
     document.removeEventListener('keydown', this.onKeyDown);
+    document.body.style.overflow = 'auto';
   }
 
   onKeyDown = e => {
@@ -40,12 +44,13 @@ class Modal extends Component {
     const { handleModalClose, images, selectedImageId } = this.props;
     const selectedImage = images.find(img => img.id === selectedImageId);
 
-    return (
-      <div className={styles.Overlay} onClick={handleModalClose} tabIndex="0">
+    return createPortal(
+      <div className={styles.Overlay} onClick={handleModalClose}>
         <div className={styles.Modal}>
           {selectedImage && <img src={selectedImage.largeImageURL} alt="" />}
         </div>
-      </div>
+      </div>,
+      modalRoot
     );
   }
 }

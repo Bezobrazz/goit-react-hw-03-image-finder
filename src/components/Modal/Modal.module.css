@@ -1,7 +1,7 @@
 .Overlay {
   top: 0;
   left: 0;
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   background-color: rgba(128, 128, 128, 0.609);
@@ -10,6 +10,10 @@
   align-items: center;
 }
 .Modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 400px;
   height: 350px;
   background-color: #fff;
