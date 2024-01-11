@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styles from './Searchbar.module.css';
-import { Comment } from 'react-loader-spinner';
 
 export class Searchbar extends Component {
   state = {
