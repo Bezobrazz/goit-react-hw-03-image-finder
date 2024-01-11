@@ -14,5 +14,6 @@ export const loadPhotos = async (query, page) => {
     },
   });
   const { data } = await unsplashApi.get(`/search/photos?`);
+  console.log(data);
   return data;
 };

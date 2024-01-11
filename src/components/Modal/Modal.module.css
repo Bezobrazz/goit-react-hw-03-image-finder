@@ -14,14 +14,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 610px;
-  height: 350px;
+  width: 675px;
+  height: 415px;
   background-color: transparent;
   overflow: hidden;
-}
-
-.ModalImg {
-  width: 100%;
-  display: block;
-  object-fit: cover;
 }
