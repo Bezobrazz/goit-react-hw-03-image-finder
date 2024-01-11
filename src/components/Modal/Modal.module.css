@@ -14,12 +14,14 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 400px;
+  width: 610px;
   height: 350px;
-  background-color: #fff;
+  background-color: transparent;
+  overflow: hidden;
 }
 
-.Modal img {
+.ModalImg {
   width: 100%;
   display: block;
+  object-fit: cover;
 }

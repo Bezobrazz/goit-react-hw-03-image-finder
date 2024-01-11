@@ -14,7 +14,6 @@ class App extends Component {
     images: [],
     page: 1,
     isLoading: false,
-    isModalOpen: false,
     largeImgUrl: '',
   };
 
@@ -64,7 +63,7 @@ class App extends Component {
   };
 
   render() {
-    const { images, isLoading, largeImgUrl, isModalOpen } = this.state;
+    const { images, isLoading, largeImgUrl } = this.state;
 
     return (
       <div className={styles.Wrapper}>

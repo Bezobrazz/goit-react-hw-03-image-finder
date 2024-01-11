@@ -6,7 +6,6 @@ export const ImageGallery = ({ images, openModal }) => {
   return (
     <ul className={styles.gallery}>
       {images.map(image => {
-        console.log('Image ID:', image.id); // Додано рядок для виведення id в консоль
         return (
           <ImageGalleryItem
             key={nanoid()}
