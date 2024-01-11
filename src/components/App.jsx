@@ -42,20 +42,12 @@ class App extends Component {
     }
   }
 
-  handleSearch = (searchValue, resetPage = false) => {
-    this.setState({
-      search: searchValue,
-      page: resetPage ? 1 : this.state.page,
-      images: [],
-    });
-  };
-
   loadMoreImages = () => {
     this.setState(prevState => ({ page: prevState.page + 1 }));
   };
 
   onSubmit = query => {
-    this.setState({ search: query });
+    this.setState({ search: query, page: 1, images: [] });
   };
 
   handleClickImg = url => {
