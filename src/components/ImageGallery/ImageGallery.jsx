@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid';
 
 export const ImageGallery = ({ images, openModal }) => {
   return (
-    <ul className={styles.gallery}>
+    <ul className={styles.Gallery}>
       {images.map(image => {
         return (
           <ImageGalleryItem

@@ -1,0 +1,6 @@
+.GalleryItem {
+  margin: 10px;
+  width: 250px;
+  height: 150px;
+  overflow: hidden;
+}
